@@ -128,3 +128,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+#以后REST_FRAMEWORK的配置都在这里
+REST_FRAMEWORK = {
+    #rest_framework目录下的pagination.py文件PageNumberPagination类
+    'DEFAULT_PAGINATION_CLASS': "rest_framework.pagination.PageNumberPagination",
+    #每页显示10条数据
+    'PAGE_SIZE': 2,
+}

@@ -6,6 +6,7 @@ from rest_framework.documentation import include_docs_urls
 from goods.views import GoodsListView, GateView
 
 router = routers.DefaultRouter()
+
 # router.register(r'goods', GoodsListView, basename='goods')
 
 

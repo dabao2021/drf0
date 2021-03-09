@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'goods.apps.GoodsConfig',
     #'crispy_forms',
     'rest_framework',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -134,5 +135,5 @@ REST_FRAMEWORK = {
     #rest_framework目录下的pagination.py文件PageNumberPagination类
     'DEFAULT_PAGINATION_CLASS': "rest_framework.pagination.PageNumberPagination",
     #每页显示10条数据
-    'PAGE_SIZE': 2,
+    'PAGE_SIZE': 1
 }

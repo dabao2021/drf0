@@ -28,7 +28,7 @@ class GoodsSerializer(serializers.ModelSerializer):
    class Meta:
       #Model
       model = Goods
-      # fields = ('name', 'click_num', 'sold_num', 'goods_fron_image',"add_time")
+      # fields = ('name', 'click_num', 'sold_num', 'goods_sn','goods_brief')
       #把所有的属性都用上的写法
       fields = "__all__"
 
@@ -40,6 +40,15 @@ class GateSerializer(serializers.ModelSerializer):
       model = GoodsCategory
       # fields = ('name', 'click_num', 'sold_num', 'goods_fron_image',"add_time")
       # 把所有的属性都用上的写法
+      fields = "__all__"
+
+class GoodsCreateSerializer(serializers.ModelSerializer):
+   # category = GoodsCategorySerializer()
+   class Meta:
+      #Model
+      model = Goods
+      # fields = ('name', 'click_num', 'sold_num', 'goods_sn','goods_brief')
+      #把所有的属性都用上的写法
       fields = "__all__"
 
 

@@ -14,8 +14,7 @@ from rest_framework import status, serializers, viewsets
 
 from goods.models import Goods
 from goods.myfilters import GoodsFilter
-from goods.serializer import GoodsSerializer, GateSerializer, GoodsCategorySerializer
-
+from goods.serializer import GoodsSerializer, GateSerializer, GoodsCategorySerializer, GoodsCreateSerializer
 
 # 用通常的方法实现
 # class GoodsListView(View):
@@ -175,3 +174,30 @@ class GoodsListViewSet(mixins.ListModelMixin,viewsets.GenericViewSet):
 #       return queryset
 
 
+from rest_framework.filters import SearchFilter, OrderingFilter
+
+class GoodsListView(viewsets.GenericViewSet, mixins.ListModelMixin, mixins.CreateModelMixin, mixins.DestroyModelMixin, mixins.RetrieveModelMixin):
+   """
+   返回商品列表页
+   """
+   #得到所有的商品
+   # queryset = Goods.objects.all()[:10]
+   queryset = Goods.objects.all()
+   # queryset = Goods.objects.filter(name__icontains='茶')
+   #序列化器
+   serializer_class = GoodsSerializer
+   # 分页
+   pagination_class = GoodsListPagination
+
+   filter_backends = (DjangoFilterBackend,SearchFilter,OrderingFilter)#
+   # filter_fields = ('name', 'shop_price')
+   search_fields = ('name', 'goods_brief')
+   ordering_fields = ('shop_price', 'sold_num')
+   filter_class = GoodsFilter
+   def get_serializer_class(self):
+       if self.action == 'list':
+           return GoodsSerializer
+       elif self.action =='create':
+           return GoodsCreateSerializer
+       else:
+          return GoodsSerializer

@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50722
 File Encoding         : 65001
 
-Date: 2021-03-04 22:58:42
+Date: 2021-03-10 23:07:11
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -109,7 +109,7 @@ CREATE TABLE `auth_user` (
   `last_login` datetime(6) DEFAULT NULL,
   `is_superuser` tinyint(1) NOT NULL,
   `username` varchar(150) NOT NULL,
-  `first_name` varchar(30) NOT NULL,
+  `first_name` varchar(150) NOT NULL,
   `last_name` varchar(150) NOT NULL,
   `email` varchar(254) NOT NULL,
   `is_staff` tinyint(1) NOT NULL,
@@ -219,7 +219,7 @@ CREATE TABLE `django_migrations` (
   `name` varchar(255) NOT NULL,
   `applied` datetime(6) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of django_migrations
@@ -243,6 +243,9 @@ INSERT INTO `django_migrations` VALUES ('16', 'auth', '0011_update_proxy_permiss
 INSERT INTO `django_migrations` VALUES ('17', 'goods', '0001_initial', '2021-03-02 14:58:13.080113');
 INSERT INTO `django_migrations` VALUES ('18', 'sessions', '0001_initial', '2021-03-02 14:58:13.119216');
 INSERT INTO `django_migrations` VALUES ('19', 'goods', '0002_auto_20210304_2112', '2021-03-04 13:12:40.772559');
+INSERT INTO `django_migrations` VALUES ('20', 'auth', '0012_alter_user_first_name_max_length', '2021-03-09 03:20:40.285141');
+INSERT INTO `django_migrations` VALUES ('21', 'goods', '0003_auto_20210309_1119', '2021-03-09 03:20:40.643141');
+INSERT INTO `django_migrations` VALUES ('22', 'goods', '0004_goods_goods_front_iamge', '2021-03-10 14:17:57.079294');
 
 -- ----------------------------
 -- Table structure for `django_session`
@@ -268,29 +271,26 @@ CREATE TABLE `goods_goods` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `goods_sn` varchar(50) NOT NULL,
   `name` varchar(100) NOT NULL,
-  `click_num` int(11) NOT NULL,
   `sold_num` int(11) NOT NULL,
-  `fav_num` int(11) NOT NULL,
   `goods_num` int(11) NOT NULL,
-  `market_price` double NOT NULL,
   `shop_price` double NOT NULL,
   `goods_brief` longtext NOT NULL,
-  `goods_desc` longtext NOT NULL,
-  `ship_free` tinyint(1) NOT NULL,
-  `goods_front_iamge` varchar(100) DEFAULT NULL,
-  `is_new` tinyint(1) NOT NULL,
-  `is_hot` tinyint(1) NOT NULL,
   `add_time` datetime(6) NOT NULL,
   `category_id` int(11) DEFAULT NULL,
+  `goods_front_iamge` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `goods_goods_category_id_da3507dd_fk_goods_goodscategory_id` (`category_id`),
   CONSTRAINT `goods_goods_category_id_da3507dd_fk_goods_goodscategory_id` FOREIGN KEY (`category_id`) REFERENCES `goods_goodscategory` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of goods_goods
 -- ----------------------------
-INSERT INTO `goods_goods` VALUES ('1', '11', '苹果', '22', '23', '33', '143', '6', '5', '好货', '确实好苹果', '1', '123123', '1', '1', '2021-03-02 23:02:45.000000', '1');
+INSERT INTO `goods_goods` VALUES ('2', '1001', '苹果', '450', '1500', '5.5', '来源陕西', '2021-03-09 11:22:04.000000', '1', null);
+INSERT INTO `goods_goods` VALUES ('3', '1002', '香蕉', '600', '2500', '2.5', '来源漳州的香蕉', '2021-03-09 11:23:13.000000', '1', null);
+INSERT INTO `goods_goods` VALUES ('4', '1004', '白菜', '500', '6000', '0.98', '山东大白菜', '2021-03-09 11:28:25.000000', '2', null);
+INSERT INTO `goods_goods` VALUES ('5', '1005', '上海青', '360', '1600', '0.88', '本地上海青', '2021-03-09 11:30:10.000000', '2', null);
+INSERT INTO `goods_goods` VALUES ('6', '1007', '牛油果', '100', '1000', '10', '海南大牛油果', '2021-03-10 22:29:49.241354', '2', 'goods/images/ubantu.jpg');
 
 -- ----------------------------
 -- Table structure for `goods_goodscategory`

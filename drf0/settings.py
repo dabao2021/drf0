@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     #'crispy_forms',
     'rest_framework',
     'django_filters',
+    'rest_framework.authtoken',
 ]
 
 MIDDLEWARE = [
@@ -137,3 +138,7 @@ REST_FRAMEWORK = {
     #每页显示10条数据
     'PAGE_SIZE': 1
 }
+
+#MEDIA_URL = '/static/media/'
+MEDIA_ROOT = 'static/media/'
+MEDIA_ROOT=os.path.join(BASE_DIR,'media')

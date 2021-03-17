@@ -136,9 +136,18 @@ REST_FRAMEWORK = {
     #rest_framework目录下的pagination.py文件PageNumberPagination类
     'DEFAULT_PAGINATION_CLASS': "rest_framework.pagination.PageNumberPagination",
     #每页显示10条数据
-    'PAGE_SIZE': 1
-}
+    'PAGE_SIZE': 1,
 
-#MEDIA_URL = '/static/media/'
-MEDIA_ROOT = 'static/media/'
-MEDIA_ROOT=os.path.join(BASE_DIR,'media')
+    'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+    'rest_framework.authentication.BasicAuthentication',
+    'rest_framework.authentication.SessionAuthentication',
+    # 'rest_framework.authentication.TokenAuthentication',
+    'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+    )
+    }
+
+MEDIA_URL = '/media/'
+# MEDIA_ROOT = 'static/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+

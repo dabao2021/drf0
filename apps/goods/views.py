@@ -3,6 +3,7 @@ from django.shortcuts import render
 # from snippets.serializers import SnippetSerializer
 from django.http import Http404
 from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.authentication import TokenAuthentication
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -176,7 +177,7 @@ class GoodsListViewSet(mixins.ListModelMixin,viewsets.GenericViewSet):
 
 from rest_framework.filters import SearchFilter, OrderingFilter
 
-class GoodsListView(viewsets.GenericViewSet, mixins.ListModelMixin, mixins.CreateModelMixin, mixins.DestroyModelMixin, mixins.RetrieveModelMixin):
+class GoodsListView(viewsets.GenericViewSet, mixins.ListModelMixin, mixins.CreateModelMixin, mixins.DestroyModelMixin, mixins.RetrieveModelMixin,mixins.UpdateModelMixin,):
    """
    返回商品列表页
    """
@@ -194,10 +195,30 @@ class GoodsListView(viewsets.GenericViewSet, mixins.ListModelMixin, mixins.Creat
    search_fields = ('name', 'goods_brief')
    ordering_fields = ('shop_price', 'sold_num')
    filter_class = GoodsFilter
+
+   authentication_classes = (TokenAuthentication,)
+
+   def list(self, request, *args, **kwargs):
+      print(self.request.user)
+      print(self.request.auth)
+      print(self.request.authenticators)
+      queryset = self.filter_queryset(self.get_queryset())
+
+      page = self.paginate_queryset(queryset)
+      if page is not None:
+         serializer = self.get_serializer(page, many=True)
+         return self.get_paginated_response(serializer.data)
+
+      serializer = self.get_serializer(queryset, many=True)
+      return Response(serializer.data)
+
    def get_serializer_class(self):
+
        if self.action == 'list':
            return GoodsSerializer
        elif self.action =='create':
            return GoodsCreateSerializer
+       elif self.action =='update':
+           return GoodsSerializer
        else:
           return GoodsSerializer
